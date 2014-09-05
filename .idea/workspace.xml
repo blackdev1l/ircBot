@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13d0c97f-8740-40c5-8f62-ed30d55c0d13" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_0_13.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_0_13.xml" />
-      <change type="DELETED" beforePath="C:\Users\Stefano\IdeaProjects\ircBot\.idea\libraries\Maven__org_slf4j_slf4j_simple_1_7_7.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ircBot.iml" afterPath="$PROJECT_DIR$/ircBot.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ircBot.iws" />
@@ -393,7 +388,11 @@
       <created>1409956004712</created>
       <updated>1409956004712</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changed logging binding">
+      <created>1409958333262</created>
+      <updated>1409958333262</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -441,7 +440,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="Added dependencies to pom.xml&#10;Changed package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added dependencies to pom.xml&#10;Changed package" />
+    <MESSAGE value="Changed logging binding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed logging binding" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
