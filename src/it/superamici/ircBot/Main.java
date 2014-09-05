@@ -1,11 +1,15 @@
-package com.superamici.ircBot;
+package it.superamici.ircBot;
 /**
  * Created by Cristian on 8/29/2014.
  */
 
-import com.ircclouds.irc.api.*;
-import com.ircclouds.irc.api.domain.*;
-import com.ircclouds.irc.api.state.*;
+import com.ircclouds.irc.api.Callback;
+import com.ircclouds.irc.api.IRCApi;
+import com.ircclouds.irc.api.IRCApiImpl;
+import com.ircclouds.irc.api.IServerParameters;
+import com.ircclouds.irc.api.domain.IRCChannel;
+import com.ircclouds.irc.api.domain.IRCServer;
+import com.ircclouds.irc.api.state.IIRCState;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +22,7 @@ public class Main {
         bot.connect(getServerParams("nick", Arrays.asList("BalotelliReturns", "Balobot"), "openbotter", "ident", "irc.eu.synirc.net", true), new Callback<IIRCState>() {
             @Override
             public void onSuccess(IIRCState iircState) {
-                bot.joinChannel("#test1", new Callback<IRCChannel>() {
+                bot.joinChannel("#superamici", new Callback<IRCChannel>() {
                     @Override
                     public void onSuccess(IRCChannel ircChannel) {
                         MessageListener listener_default = new MessageListener(bot,ircChannel);

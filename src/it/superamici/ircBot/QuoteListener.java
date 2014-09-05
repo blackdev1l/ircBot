@@ -1,4 +1,4 @@
-package com.superamici.ircBot;
+package it.superamici.ircBot;
 
 import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.domain.IRCChannel;

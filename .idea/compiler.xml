@@ -25,6 +25,9 @@
         <module name="ircBot" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ircBot" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 
