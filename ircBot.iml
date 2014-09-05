@@ -11,6 +11,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="com.ircclouds.irc:irc-api:1.0-0014" level="project" />
+    <orderEntry type="library" name="org.mongodb:mongo-java-driver:2.12.3" level="project" />
   </component>
 </module>
 
