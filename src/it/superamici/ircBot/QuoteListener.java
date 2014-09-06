@@ -10,15 +10,11 @@ import com.ircclouds.irc.api.listeners.VariousMessageListenerAdapter;
  * TODO: Complete the class
  */
 public class QuoteListener extends VariousMessageListenerAdapter {
-    private String chan;
     private IRCApi bot;
-    private IRCChannel ircChannel;
     private Quote quote;
 
-    public QuoteListener(IRCApi bot,IRCChannel ircChannel,Quote quote) {
+    public QuoteListener(IRCApi bot,Quote quote) {
         this.bot = bot;
-        this.ircChannel = ircChannel;
-        this.chan = ircChannel.getName();
         this.quote = quote;
     }
 

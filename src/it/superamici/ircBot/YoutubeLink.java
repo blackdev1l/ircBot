@@ -18,13 +18,9 @@ import java.io.IOException;
  */
 
 public class YoutubeLink extends VariousMessageListenerAdapter {
-    private String chan;
     private IRCApi bot;
-    private IRCChannel ircChannel;
-    public YoutubeLink(IRCApi bot,IRCChannel ircChannel) {
+    public YoutubeLink(IRCApi bot) {
         this.bot = bot;
-        this.ircChannel = ircChannel;
-        this.chan = ircChannel.getName();
     }
 
     @Override

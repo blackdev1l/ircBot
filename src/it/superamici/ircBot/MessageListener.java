@@ -16,13 +16,9 @@ import java.util.Calendar;
  * Created by Cristian on 8/29/2014.
  */
 public class MessageListener extends VariousMessageListenerAdapter {
-    private String chan;
     private IRCApi bot;
-    private IRCChannel ircChannel;
-    public MessageListener(IRCApi bot,IRCChannel ircChannel) {
+    public MessageListener(IRCApi bot) {
         this.bot = bot;
-        this.ircChannel = ircChannel;
-        this.chan = ircChannel.getName();
     }
 
     @Override

@@ -10,80 +10,55 @@ import com.ircclouds.irc.api.IServerParameters;
 import com.ircclouds.irc.api.domain.IRCChannel;
 import com.ircclouds.irc.api.domain.IRCServer;
 import com.ircclouds.irc.api.state.IIRCState;
+import it.superamici.ircBot.settings.IBotSettings;
+import it.superamici.ircBot.settings.ISettingsFileParser;
+import it.superamici.ircBot.settings.SettingsFileParserException;
+import it.superamici.ircBot.settings.impl.XmlSettingsFileParser;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        IRCApi bot = new IRCApiImpl(true);
-        Quote quote = new Quote();
 
-        bot.connect(getServerParams("nick", Arrays.asList("BalotelliReturns", "Balobot"), "openbotter", "ident", "irc.eu.synirc.net", true), new Callback<IIRCState>() {
-            @Override
-            public void onSuccess(IIRCState iircState) {
-                bot.joinChannel("#superamici", new Callback<IRCChannel>() {
-                    @Override
-                    public void onSuccess(IRCChannel ircChannel) {
-                        MessageListener listener_default = new MessageListener(bot,ircChannel);
-                        YoutubeLink listener_link = new YoutubeLink(bot,ircChannel);
-                        QuoteListener listener_quote = new QuoteListener(bot,ircChannel,quote);
-                        bot.addListener(listener_default);
-                        bot.addListener(listener_link);
-                        bot.addListener(listener_quote);
+        ISettingsFileParser fileParser = new XmlSettingsFileParser();
+
+        try {
+            IBotSettings botSettings = fileParser.parseFile(new File("settings.xml"));
+
+            IRCApi bot = new IRCApiImpl(true);
+            Quote quote = new Quote();
+
+            bot.connect(botSettings.getServerParameters(), new Callback<IIRCState>() {
+                @Override
+                public void onSuccess(IIRCState iircState) {
+
+                    MessageListener listener_default = new MessageListener(bot);
+                    YoutubeLink listener_link = new YoutubeLink(bot);
+                    QuoteListener listener_quote = new QuoteListener(bot,quote);
+                    bot.addListener(listener_default);
+                    bot.addListener(listener_link);
+                    bot.addListener(listener_quote);
+
+                    for (String channelName : botSettings.getChannelsToJoin()) {
+                        bot.joinChannel(channelName);
                     }
 
-                    @Override
-                    public void onFailure(Exception e) {
+                }
 
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
-            @Override
-            public void onFailure(Exception e) {
-
-            }
-        });
+        } catch (SettingsFileParserException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private static IServerParameters getServerParams(final String aNickname, final List<String> aAlternativeNicks,
-                                                     final String aRealname, final String aIdent,
-                                                     final String aServerName, final Boolean aIsSSLServer)
-    {
-        return new IServerParameters()
-        {
-            @Override
-            public IRCServer getServer()
-            {
-                return new IRCServer(aServerName, aIsSSLServer);
-            }
 
-            @Override
-            public String getRealname()
-            {
-                return aRealname;
-            }
-
-            @Override
-            public String getNickname()
-            {
-                return aNickname;
-            }
-
-            @Override
-            public String getIdent()
-            {
-                return aIdent;
-            }
-
-            @Override
-            public List<String> getAlternativeNicknames()
-            {
-                return aAlternativeNicks;
-            }
-        };
-    }
 
 }

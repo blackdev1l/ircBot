@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<botSettings>
+    <serverParameters>
+        <nickname>BaLOLtelli</nickname>
+        <alternativeNicknames>
+            <nickname>Pugnitopo</nickname>
+            <nickname>Staceppa</nickname>
+        </alternativeNicknames>
+        <ident>boooh</ident>
+        <realname>real name</realname>
+        <ircServer>
+            <hostname>irc.eu.synirc.net</hostname>
+            <isSSL>false</isSSL>
+        </ircServer>
+    </serverParameters>
+    <channels>
+        <channel>#superamici</channel>
+        <channel>#prova</channel>
+    </channels>
+</botSettings>
