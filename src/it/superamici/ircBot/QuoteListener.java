@@ -26,13 +26,18 @@ public class QuoteListener extends VariousMessageListenerAdapter {
 
         }
         else if(aMsg.getText().contains("!quote")) {
-            int n = Integer.parseInt(aMsg.getText().substring(7));
+            int n = Integer.parseInt(aMsg.getText().substring(7).trim());
             String msg = quote.showByID(n);
             bot.message(aMsg.getChannelName(),msg);
         }
-        else if(aMsg.getText().contains("!searchquote")) {
-            String msg = quote.search(aMsg.getText().substring(13));
+        else if(aMsg.getText().contains("!findquote")) {
+            String msg = quote.search(aMsg.getText().substring(11));
             bot.message(aMsg.getChannelName(),msg);
+        }
+        else if(aMsg.getText().contains("!randomquote")) {
+            String msg = quote.random();
+            bot.message(aMsg.getChannelName(),msg);
+
         }
     }
 }

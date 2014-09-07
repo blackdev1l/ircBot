@@ -5,11 +5,12 @@ import com.mongodb.*;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by Cristian on 9/1/2014.
  * TODO: Complete the class
- * TODO: !searchquote
+ * TODO: !findquote
  * TODO: !randomquote
  */
 public class Quote {
@@ -69,6 +70,13 @@ public class Quote {
         return parseQuery(cursor);
     }
 
+    public String random() {
+        int lel;
+        Random random = new Random();
+        lel = random.nextInt((int) coll.getCount()); // scusa amico_i
+        System.out.println(lel);
+        return showByID(lel);
+    }
 
 
     private String parseQuery(DBCursor cursor) {
