@@ -20,13 +20,18 @@ public class QuoteListener extends VariousMessageListenerAdapter {
 
     @Override
     public void onChannelMessage(ChannelPrivMsg aMsg) {
-        if(aMsg.getText().contains("!add") && aMsg.getText().length() >= 5) {
-            quote.add(aMsg);
-            bot.message(aMsg.getChannelName(),"quote added");
+        if(aMsg.getText().contains("!addquote") && aMsg.getText().length() >= 10) {
+            long n = quote.add(aMsg);
+            bot.message(aMsg.getChannelName(),"quote added ["+n+"]");
 
         }
         else if(aMsg.getText().contains("!quote")) {
-            String msg = quote.showByID(aMsg.getText().substring(7));
+            int n = Integer.parseInt(aMsg.getText().substring(7));
+            String msg = quote.showByID(n);
+            bot.message(aMsg.getChannelName(),msg);
+        }
+        else if(aMsg.getText().contains("!searchquote")) {
+            String msg = quote.search(aMsg.getText().substring(13));
             bot.message(aMsg.getChannelName(),msg);
         }
     }

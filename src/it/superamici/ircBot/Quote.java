@@ -9,6 +9,8 @@ import java.util.Arrays;
 /**
  * Created by Cristian on 9/1/2014.
  * TODO: Complete the class
+ * TODO: !searchquote
+ * TODO: !randomquote
  */
 public class Quote {
     private MongoClient mongoClient;
@@ -28,26 +30,51 @@ public class Quote {
 
     }
 
-    //TODO: Assert
-    public void add(ChannelPrivMsg aMsg) {
-        BasicDBObject obj = new BasicDBObject("id",coll.getCount())
-                .append("name",aMsg.getSource().getNick())
-                .append("msg",aMsg.getText().substring(5));
+    /**
+     * TODO: Assert
+     */
+
+    public long add(ChannelPrivMsg aMsg) {
+        BasicDBObject obj = new BasicDBObject("id",coll.getCount());
+        obj.put("name",aMsg.getSource().getNick());
+        obj.put("msg", aMsg.getText().substring(10));
         coll.insert(obj);
+        return coll.getCount()-1;
     }
 
-    //TODO: Assert
-    public String showByID(String id) {
-        BasicDBObject obj = new BasicDBObject("id",id);
-        DBCursor cursor = coll.find(obj);
-        DBObject res = cursor.getKeysWanted();
-        return res.toString();
-
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public String showByID(int id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("id",id);
+        DBCursor cursor = coll.find(query);
+        return parseQuery(cursor);
     }
 
-    //TODO: Assert
-    public void remove(int id) {
-        BasicDBObject obj = new BasicDBObject("id",id);
-        coll.remove(obj);
+    /**
+     * TODO: make it works
+     * @param search
+     * @return
+     */
+    public String search(String search) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("$text",search);
+        DBCursor cursor = coll.find(query);
+        while(cursor.hasNext()) {
+            System.out.println(cursor.next());
+        }
+        return parseQuery(cursor);
+    }
+
+
+
+    private String parseQuery(DBCursor cursor) {
+        DBObject res = cursor.one();
+        String name = res.get("name").toString();
+        String msg = res.get("msg").toString();
+        return name+": "+msg;
     }
 }
