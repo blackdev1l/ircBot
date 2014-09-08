@@ -9,8 +9,8 @@ import it.superamici.ircBot.plugins.AbstractBotPlugin;
  * Created by Stefano on 08/09/2014.
  */
 public class LinkParserPlugin extends AbstractBotPlugin {
-    private IRCApi bot;
-    private IMessageListener linkListener;
+    private volatile IRCApi bot;
+    private volatile IMessageListener linkListener;
 
     @Override
     public String getName() {

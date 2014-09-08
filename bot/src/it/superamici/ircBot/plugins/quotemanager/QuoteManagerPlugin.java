@@ -9,9 +9,9 @@ import it.superamici.ircBot.plugins.AbstractBotPlugin;
  * Created by Stefano on 08/09/2014.
  */
 public class QuoteManagerPlugin extends AbstractBotPlugin {
-    private IRCApi bot;
-    private Quote quotedb;
-    private IMessageListener quoteListener;
+    private volatile IRCApi bot;
+    private volatile Quote quotedb;
+    private volatile IMessageListener quoteListener;
 
     @Override
     public String getName() {
