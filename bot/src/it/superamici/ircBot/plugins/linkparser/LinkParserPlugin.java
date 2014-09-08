@@ -1,11 +1,9 @@
 package it.superamici.ircBot.plugins.linkparser;
 
 import com.ircclouds.irc.api.IRCApi;
-import com.ircclouds.irc.api.domain.IRCChannel;
 import com.ircclouds.irc.api.listeners.IMessageListener;
 import com.ircclouds.irc.api.state.IIRCState;
-import it.superamici.ircBot.AbstractBotPlugin;
-import it.superamici.ircBot.IBotPlugin;
+import it.superamici.ircBot.plugins.AbstractBotPlugin;
 
 /**
  * Created by Stefano on 08/09/2014.

@@ -1,4 +1,4 @@
-package it.superamici.ircBot;
+package it.superamici.ircBot.plugins;
 
 import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.IServerParameters;

@@ -9,10 +9,9 @@ import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.IRCApiImpl;
 import com.ircclouds.irc.api.domain.IRCChannel;
 import com.ircclouds.irc.api.state.IIRCState;
+import it.superamici.ircBot.plugins.IBotPlugin;
+import it.superamici.ircBot.plugins.IRCApiPluginProxy;
 import it.superamici.ircBot.plugins.linkparser.LinkParserPlugin;
-import it.superamici.ircBot.plugins.quotemanager.Quote;
-import it.superamici.ircBot.plugins.quotemanager.QuoteListener;
-import it.superamici.ircBot.plugins.linkparser.YoutubeLink;
 import it.superamici.ircBot.plugins.quotemanager.QuoteManagerPlugin;
 import it.superamici.ircBot.settings.IBotSettings;
 import it.superamici.ircBot.settings.ISettingsFileParser;
@@ -20,7 +19,6 @@ import it.superamici.ircBot.settings.SettingsFileParserException;
 import it.superamici.ircBot.settings.impl.XmlSettingsFileParser;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Main {
@@ -38,8 +36,9 @@ public class Main {
 
             IRCApi bot = new IRCApiImpl(true);
 
+            IRCApiPluginProxy botProxy = new IRCApiPluginProxy(bot);
             for (IBotPlugin plugin : plugins) {
-                plugin.onLoad(bot);
+                plugin.onLoad(botProxy);
             }
 
             bot.connect(botSettings.getServerParameters(), new Callback<IIRCState>() {
