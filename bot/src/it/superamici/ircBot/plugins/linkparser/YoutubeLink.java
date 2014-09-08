@@ -1,7 +1,6 @@
-package it.superamici.ircBot;
+package it.superamici.ircBot.plugins.linkparser;
 
 import com.ircclouds.irc.api.IRCApi;
-import com.ircclouds.irc.api.domain.IRCChannel;
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.ircclouds.irc.api.listeners.VariousMessageListenerAdapter;
 import org.jsoup.*;

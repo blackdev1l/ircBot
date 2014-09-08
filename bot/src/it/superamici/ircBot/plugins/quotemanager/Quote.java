@@ -1,4 +1,4 @@
-package it.superamici.ircBot;
+package it.superamici.ircBot.plugins.quotemanager;
 
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.mongodb.*;
@@ -73,7 +73,7 @@ public class Quote {
     public String random() {
         int lel;
         Random random = new Random();
-        lel = random.nextInt((int) coll.getCount()); // scusa amico_i
+        lel = random.nextInt((int) coll.getCount()); // scusa amico_i (scusa per cosa? Per aver chiamato una variabile lel? è_é)
         System.out.println(lel);
         return showByID(lel);
     }
