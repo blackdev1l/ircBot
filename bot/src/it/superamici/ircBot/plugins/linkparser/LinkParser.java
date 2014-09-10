@@ -28,18 +28,18 @@ public class LinkParser extends VariousMessageListenerAdapter {
     @Override
     public void onChannelMessage(ChannelPrivMsg aMsg) {
         ArrayList<CharSequence> list = retrieveLinks(aMsg.getText());
-        for (CharSequence s : list) {
-            Document doc = null;
-            try {
-                doc = Jsoup.connect(s.toString()).get();
-                assert doc != null;
-                String title = doc.title();
-                bot.message(aMsg.getChannelName(), title);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!list.isEmpty()) {
+            for (CharSequence s : list) {
+                Document doc = null;
+                try {
+                    doc = Jsoup.connect(s.toString()).get();
+                    assert doc != null;
+                    String title = doc.title();
+                    bot.message(aMsg.getChannelName(), title);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-
         }
     }
 
