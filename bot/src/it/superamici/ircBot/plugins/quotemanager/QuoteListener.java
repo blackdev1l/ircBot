@@ -30,8 +30,11 @@ public class QuoteListener extends VariousMessageListenerAdapter {
             bot.message(aMsg.getChannelName(),msg);
         }
         else if(aMsg.getText().contains("!findquote")) {
-            String msg = quote.search(aMsg.getText().substring(11));
-            bot.message(aMsg.getChannelName(),msg);
+            try {
+                quote.search(aMsg,bot);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         else if(aMsg.getText().contains("!randomquote")) {
             String msg = quote.random();

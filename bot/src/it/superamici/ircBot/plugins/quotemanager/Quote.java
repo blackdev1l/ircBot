@@ -1,5 +1,6 @@
 package it.superamici.ircBot.plugins.quotemanager;
 
+import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.mongodb.*;
 
@@ -56,19 +57,18 @@ public class Quote {
         return parseQuery(cursor);
     }
 
-    /**
-     * @param search
-     * @return
-     */
-    public String search(String search) {
+
+    public void search(ChannelPrivMsg aMsg,IRCApi bot) throws InterruptedException {
+        String search = aMsg.getText().substring(11);
         String searchRegEx = ".*" + search + ".*";
         Pattern pattern = Pattern.compile(searchRegEx, Pattern.CASE_INSENSITIVE);
         BasicDBObject query = new BasicDBObject("msg", pattern);
         DBCursor cursor = coll.find(query);
         while(cursor.hasNext()) {
+            bot.message(aMsg.getChannelName(),parseQuery(cursor));
             System.out.println(cursor.next());
+            Thread.sleep(1000);
         }
-        return parseQuery(cursor);
     }
 
     public String random() {
