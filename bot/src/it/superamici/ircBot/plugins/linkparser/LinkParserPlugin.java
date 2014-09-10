@@ -20,7 +20,7 @@ public class LinkParserPlugin extends AbstractBotPlugin {
     @Override
     public void onLoad(IRCApi ircApi) {
         this.bot = ircApi;
-        this.linkListener = new YoutubeLink(bot);
+        this.linkListener = new LinkParser(bot);
     }
 
     @Override
