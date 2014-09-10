@@ -54,7 +54,7 @@ public class Quote {
         BasicDBObject query = new BasicDBObject();
         query.put("id",id);
         DBCursor cursor = coll.find(query);
-        return parseQuery(cursor);
+        return parseQuery(cursor.next());
     }
 
 
@@ -65,8 +65,8 @@ public class Quote {
         BasicDBObject query = new BasicDBObject("msg", pattern);
         DBCursor cursor = coll.find(query);
         while(cursor.hasNext()) {
-            list.add(parseQuery(cursor));
-            System.out.println(cursor.next());
+            list.add(parseQuery(cursor.next()));
+            System.out.println(cursor);
         }
         return list;
     }
@@ -80,10 +80,9 @@ public class Quote {
     }
 
 
-    private String parseQuery(DBCursor cursor) {
-        DBObject res = cursor.one();
-        String name = res.get("name").toString();
-        String msg = res.get("msg").toString();
+    private String parseQuery(DBObject cursor) {
+        String name = cursor.get("name").toString();
+        String msg = cursor.get("msg").toString();
         return name+": "+msg;
     }
 }
