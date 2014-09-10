@@ -6,6 +6,7 @@ import com.mongodb.*;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * Created by Cristian on 9/1/2014.
@@ -56,13 +57,13 @@ public class Quote {
     }
 
     /**
-     * TODO: make it works
      * @param search
      * @return
      */
     public String search(String search) {
-        BasicDBObject query = new BasicDBObject();
-        query.put("$text",search);
+        String searchRegEx = ".*" + search + ".*";
+        Pattern pattern = Pattern.compile(searchRegEx, Pattern.CASE_INSENSITIVE);
+        BasicDBObject query = new BasicDBObject("msg", pattern);
         DBCursor cursor = coll.find(query);
         while(cursor.hasNext()) {
             System.out.println(cursor.next());

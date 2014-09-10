@@ -22,7 +22,7 @@ public class QuoteManagerPlugin extends AbstractBotPlugin {
     public void onLoad(IRCApi ircApi) {
         this.bot = ircApi;
         this.quotedb = new Quote();
-        this.quoteListener = new QuoteListener(bot,quotedb);
+        this.quoteListener = new QuoteListener(bot, quotedb);
     }
 
     @Override
