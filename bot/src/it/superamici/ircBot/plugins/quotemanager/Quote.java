@@ -60,8 +60,7 @@ public class Quote {
 
     public ArrayList<String> search(String search)  {
         ArrayList<String> list = new ArrayList<String>();
-        String searchRegEx = ".*" + search + ".*";
-        Pattern pattern = Pattern.compile(searchRegEx, Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(search, Pattern.CASE_INSENSITIVE);
         BasicDBObject query = new BasicDBObject("msg", pattern);
         DBCursor cursor = coll.find(query);
         while(cursor.hasNext()) {
