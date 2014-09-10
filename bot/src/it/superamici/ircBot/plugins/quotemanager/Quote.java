@@ -1,10 +1,10 @@
 package it.superamici.ircBot.plugins.quotemanager;
 
-import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -58,17 +58,17 @@ public class Quote {
     }
 
 
-    public void search(ChannelPrivMsg aMsg,IRCApi bot) throws InterruptedException {
-        String search = aMsg.getText().substring(11);
+    public ArrayList<String> search(String search)  {
+        ArrayList<String> list = new ArrayList<String>();
         String searchRegEx = ".*" + search + ".*";
         Pattern pattern = Pattern.compile(searchRegEx, Pattern.CASE_INSENSITIVE);
         BasicDBObject query = new BasicDBObject("msg", pattern);
         DBCursor cursor = coll.find(query);
         while(cursor.hasNext()) {
-            bot.message(aMsg.getChannelName(),parseQuery(cursor));
+            list.add(parseQuery(cursor));
             System.out.println(cursor.next());
-            Thread.sleep(1000);
         }
+        return list;
     }
 
     public String random() {

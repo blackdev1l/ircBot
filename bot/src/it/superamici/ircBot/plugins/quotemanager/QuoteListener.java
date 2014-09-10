@@ -4,6 +4,8 @@ import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.ircclouds.irc.api.listeners.VariousMessageListenerAdapter;
 
+import java.util.ArrayList;
+
 /**
  * Created by Cristian on 9/1/2014.
  * TODO: Complete the class
@@ -30,10 +32,10 @@ public class QuoteListener extends VariousMessageListenerAdapter {
             bot.message(aMsg.getChannelName(),msg);
         }
         else if(aMsg.getText().contains("!findquote")) {
-            try {
-                quote.search(aMsg,bot);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            String search = aMsg.getText().substring(11);
+            ArrayList<String> list = quote.search(search);
+            for (String s : list) {
+                bot.message(aMsg.getChannelName(),s);
             }
         }
         else if(aMsg.getText().contains("!randomquote")) {
