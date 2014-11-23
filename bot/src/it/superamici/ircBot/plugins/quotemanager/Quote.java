@@ -80,8 +80,9 @@ public class Quote {
 
 
     private String parseQuery(DBObject cursor) {
-        String name = cursor.get("name").toString();
+        //String name = cursor.get("name").toString();
         String msg = cursor.get("msg").toString();
-        return name+": "+msg;
+        //return name+": "+msg;
+        return msg;
     }
 }
