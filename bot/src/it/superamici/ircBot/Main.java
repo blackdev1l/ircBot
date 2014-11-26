@@ -9,6 +9,7 @@ import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.IRCApiImpl;
 import com.ircclouds.irc.api.domain.IRCChannel;
 import com.ircclouds.irc.api.state.IIRCState;
+import it.superamici.ircBot.plugins.History.HistoryPlugin;
 import it.superamici.ircBot.plugins.IBotPlugin;
 import it.superamici.ircBot.plugins.IRCApiPluginProxy;
 import it.superamici.ircBot.plugins.linkparser.LinkParserPlugin;
@@ -30,6 +31,7 @@ public class Main {
         Set<IBotPlugin> plugins = Sets.newHashSet();
         plugins.add(new LinkParserPlugin());
         plugins.add(new QuoteManagerPlugin());
+        plugins.add(new HistoryPlugin());
 
         try {
             IBotSettings botSettings = fileParser.parseFile(new File("settings.xml"));
