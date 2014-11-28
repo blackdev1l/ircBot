@@ -11,8 +11,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -29,7 +28,7 @@ public class History extends VariousMessageListenerAdapter {
         Date dnow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-        try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(aMsg.getChannelName(), true)))) {
+        try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(aMsg.getChannelName()+".log", true)))) {
             out.println("("+ft.format(dnow)+") "+aMsg.getSource().getNick()+":"+" "+aMsg.getText());
             out.close();
         }catch (IOException e) {
@@ -47,28 +46,76 @@ public class History extends VariousMessageListenerAdapter {
                 cal.add(Calendar.HOUR, -time);
                 Date dback = cal.getTime();
                 SimpleDateFormat newFt = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-
+                reverseReader(aMsg.getChannelName(),time);
+            }
+            else {
+                int time = Integer.parseInt(tmp);
+                List out = reverseReader(aMsg.getChannelName()+".log",time);
                 try {
-                    BufferedReader br = new BufferedReader(new FileReader(aMsg.getChannelName()));
-                    Stream<String> lines = br.lines();
-
-
-                } catch (FileNotFoundException e) {
+                    String url = sendToPastebin(out);
+                    bot.message(aMsg.getChannelName(),url);
+                } catch (UnirestException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    private String sendToPastebin(File file) throws UnirestException {
+    private List reverseReader(String channelName, int time) {
+        RandomAccessFile stream = null;
+        List out = new ArrayList<String>();
+        try {
+            stream = new RandomAccessFile(channelName, "r");
+            long pos = stream.length();
+            safeSeek(stream, --pos);
+            int c;
+            int nLines = 0;
+            while (pos >= 0 && nLines < time + 1 && (c = stream.read()) != -1) {
+                if (c == '\n') {
+                    nLines++;
+                }
+                safeSeek(stream, --pos);
+            }
+            stream.seek(pos+2);
+            int i=0;
+            String line;
+            while ((line = stream.readLine()) != null) {
+                System.out.println(line);
+                out.add(line+'\n');
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return out;
+    }
+
+    private static void safeSeek(RandomAccessFile stream, long pos)
+            throws IOException {
+        if (pos > 0) {
+            stream.seek(pos);
+        } else {
+            stream.seek(0);
+        }
+    }
+
+    private String sendToPastebin(List msg) throws UnirestException {
         String url = "http://pastebin.com/api/api_post.php";
         HttpResponse<String> response = Unirest.post(url)
                 .header("accept", "application/string")
-                .field("api_dev_key","645ea11231f171b924231c88475648fc")
+                .field("api_dev_key", "645ea11231f171b924231c88475648fc")
                 .field("api_option","paste")
-                .field("api_paste_code", "msg")
+                .field("api_paste_code", msg)
                 .asString();
-        return response.toString();
+        return response.getBody();
 
     }
 }
