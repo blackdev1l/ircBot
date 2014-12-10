@@ -38,6 +38,10 @@ public class MessageListener extends VariousMessageListenerAdapter {
             bot.message(aMsg.getChannelName(),"leaving");
             bot.leaveChannel(aMsg.getChannelName());
         }
+
+        if(aMsg.getText().equals("!source")) {
+            bot.message(aMsg.getChannelName(),"https://github.com/blackdev1l/ircBot");
+        }
     }
 
     @Override

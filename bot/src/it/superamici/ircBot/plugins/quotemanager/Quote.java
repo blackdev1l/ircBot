@@ -81,8 +81,9 @@ public class Quote {
 
     private String parseQuery(DBObject cursor) {
         //String name = cursor.get("name").toString();
+        String id = cursor.get("id").toString();
         String msg = cursor.get("msg").toString();
         //return name+": "+msg;
-        return msg;
+        return "["+id+"] "+msg;
     }
 }
