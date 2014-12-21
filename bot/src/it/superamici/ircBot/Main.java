@@ -34,7 +34,7 @@ public class Main {
         plugins.add(new HistoryPlugin());
 
         try {
-            IBotSettings botSettings = fileParser.parseFile(new File("../settings.xml"));
+            IBotSettings botSettings = fileParser.parseFile(new File("settings.xml"));
 
             IRCApi bot = new IRCApiImpl(true);
 

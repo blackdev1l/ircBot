@@ -26,10 +26,10 @@ public class History extends VariousMessageListenerAdapter {
     @Override
     public void onChannelMessage(ChannelPrivMsg aMsg) {
         Date dnow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat("[HH:mm:ss]");
 
         try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(aMsg.getChannelName()+".log", true)))) {
-            out.println("("+ft.format(dnow)+") "+aMsg.getSource().getNick()+":"+" "+aMsg.getText());
+            out.println(ft.format(dnow)+" <"+aMsg.getSource().getNick()+"> "+aMsg.getText());
             out.close();
         }catch (IOException e) {
 
