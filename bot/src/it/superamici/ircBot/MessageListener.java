@@ -52,7 +52,7 @@ public class MessageListener extends VariousMessageListenerAdapter {
     public void onChannelAction(ChannelActionMsg aMsg) {
         if(aMsg.getText().contains("tip")) {
             bot.act(aMsg.getChannelName(),"tips fedora");
-            if(aMsg.getSource().equals("Amico_i")) {
+            if(aMsg.getSource().getNick().equals("Amico_i")) {
                 bot.message(aMsg.getChannelName(),"Sono euforica.");
             }
         }
