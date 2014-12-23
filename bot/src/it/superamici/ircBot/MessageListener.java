@@ -2,6 +2,7 @@ package it.superamici.ircBot;
 
 import com.ircclouds.irc.api.IRCApi;
 import com.ircclouds.irc.api.domain.IRCChannel;
+import com.ircclouds.irc.api.domain.messages.ChannelActionMsg;
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.ircclouds.irc.api.domain.messages.ErrorMessage;
 import com.ircclouds.irc.api.domain.messages.ServerPing;
@@ -39,8 +40,21 @@ public class MessageListener extends VariousMessageListenerAdapter {
             bot.leaveChannel(aMsg.getChannelName());
         }
 
-        if(aMsg.getText().equals("!source")) {
+        else if(aMsg.getText().equals("!source")) {
             bot.message(aMsg.getChannelName(),"https://github.com/blackdev1l/ircBot");
+        }
+        else if(aMsg.getText().equals("!stats")) {
+            bot.message(aMsg.getChannelName(),"http://superamici.tk/");
+        }
+    }
+
+    @Override
+    public void onChannelAction(ChannelActionMsg aMsg) {
+        if(aMsg.getText().contains("tip")) {
+            bot.act(aMsg.getChannelName(),"tips fedora");
+            if(aMsg.getSource().equals("Amico_i")) {
+                bot.message(aMsg.getChannelName(),"Sono euforica.");
+            }
         }
     }
 
