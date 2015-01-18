@@ -26,7 +26,9 @@ public class QuoteListener extends VariousMessageListenerAdapter {
         if (aMsg.getText().startsWith("!addquote") && aMsg.getText().length() >= 10) {
             if(aMsg.getSource().getNick().equals("pancreas") ||
                aMsg.getSource().getNick().equals("pancraes") ||
-               aMsg.getSource().getNick().equals("Backtired"))
+               aMsg.getSource().getNick().equals("Backtired") ||
+               aMsg.getSource().getNick().equals("priscillo"))
+
             {}
             else {
                 long n = quote.add(aMsg);
