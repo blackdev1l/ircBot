@@ -27,11 +27,13 @@ public class MessageListener extends VariousMessageListenerAdapter {
 
         if(aMsg.getText().equals("!ping"))
             bot.message(aMsg.getChannelName(), "pong!");
+        /*
         else if(aMsg.getText().contains("!join #")) {
             String newChan = aMsg.getText().substring(6);
             bot.message(aMsg.getChannelName(),"Joining "+newChan);
             bot.joinChannel(newChan);
         }
+        */
         else if(aMsg.getText().contains(".j")) {
             bot.joinChannel("#superamici");
         }
