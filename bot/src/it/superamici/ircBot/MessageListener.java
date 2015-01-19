@@ -35,16 +35,32 @@ public class MessageListener extends VariousMessageListenerAdapter {
         else if(aMsg.getText().contains(".j")) {
             bot.joinChannel("#superamici");
         }
+        /*
+        N3S SEI UN COGLIONE
+
         else if(aMsg.getText().equals("!leave")) {
             bot.message(aMsg.getChannelName(),"leaving");
             bot.leaveChannel(aMsg.getChannelName());
         }
-
+        */
         else if(aMsg.getText().equals("!source")) {
             bot.message(aMsg.getChannelName(),"https://github.com/blackdev1l/ircBot");
         }
         else if(aMsg.getText().equals("!stats")) {
             bot.message(aMsg.getChannelName(),"http://superamici.tk/");
+        }
+        else if(aMsg.getText().contains("Ciao a tutti")) {
+            bot.message(aMsg.getChannelName(),"Ciao "+aMsg.getSource().getNick());
+        }
+        else if(aMsg.getText().contains("Salve a tutti")) {
+            bot.message(aMsg.getChannelName(),"Salve "+aMsg.getSource().getNick());
+        }
+        else if(aMsg.getText().contains("brava Silvia")) {
+            bot.act(aMsg.getChannelName(),"arrossisce");
+        }
+        else if(aMsg.getText().contains("buonanotte") ||
+                aMsg.getText().contains("buona notte")) {
+            bot.message(aMsg.getChannelName(),"Buonanotte "+aMsg.getSource().getNick());
         }
     }
 
