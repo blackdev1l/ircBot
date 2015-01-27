@@ -1,21 +1,15 @@
 package it.superamici.ircBot.plugins.History;
 
 import com.ircclouds.irc.api.IRCApi;
-import com.ircclouds.irc.api.domain.messages.ChanJoinMessage;
 import com.ircclouds.irc.api.domain.messages.ChannelPrivMsg;
 import com.ircclouds.irc.api.listeners.VariousMessageListenerAdapter;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.sun.xml.internal.fastinfoset.util.CharArray;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Created by Cristian on 11/25/2014.
