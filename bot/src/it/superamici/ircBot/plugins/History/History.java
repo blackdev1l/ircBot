@@ -123,7 +123,7 @@ public class History extends VariousMessageListenerAdapter {
         String word = msg.substring(i);
         System.out.println("word is "+word);
         for(Object s : list) {
-            if(s.toString().contains(msg)){
+            if(s.toString().contains(word)){
                 System.out.println("found "+s.toString());
                 found.add(s.toString());
             }
