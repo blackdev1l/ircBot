@@ -8,10 +8,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.sun.xml.internal.fastinfoset.util.CharArray;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
@@ -23,6 +26,10 @@ public class History extends VariousMessageListenerAdapter {
         this.bot = bot;
     }
 
+    /*
+        Every message is saved on hard disk
+        file's name is chanName.log
+     */
     @Override
     public void onChannelMessage(ChannelPrivMsg aMsg) {
         Date dnow = new Date();
@@ -36,27 +43,17 @@ public class History extends VariousMessageListenerAdapter {
         }
 
         if(aMsg.getText().contains("!tail")) {
-            String tmp  = aMsg.getText().substring(6).trim();
+            int time = getLines(aMsg.getText());
 
-            if(tmp.contains("o")) {
-                int time = Integer.parseInt(tmp.substring(0,tmp.length()-1));
-
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(dnow);
-                cal.add(Calendar.HOUR, -time);
-                Date dback = cal.getTime();
-                SimpleDateFormat newFt = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                reverseReader(aMsg.getChannelName(),time);
+            List out = reverseReader(aMsg.getChannelName()+".log",time);
+            if(aMsg.getText().contains("grep")) {
+                out = grep(out,aMsg.getText());
             }
-            else {
-                int time = Integer.parseInt(tmp);
-                List out = reverseReader(aMsg.getChannelName()+".log",time);
-                try {
-                    String url = sendToPastebin(out);
-                    bot.message(aMsg.getChannelName(),url);
-                } catch (UnirestException e) {
-                    e.printStackTrace();
-                }
+            try {
+                String url = sendToPastebin(out);
+                bot.message(aMsg.getChannelName(),url);
+            } catch (UnirestException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -118,5 +115,44 @@ public class History extends VariousMessageListenerAdapter {
                 .asString();
         return response.getBody();
 
+    }
+
+    /*
+        Get in input the list already parsed from file and message
+        It returns a new list which has only lines that contains "word"
+    */
+    private List grep(List list, String msg) {
+        List found = new ArrayList<String>();
+        /* i is a placeholder which points the start of the word to find */
+        int i = msg.indexOf("grep");
+        i+="grep ".length();
+        String word = msg.substring(i);
+        System.out.println("word is "+word);
+        for(Object s : list) {
+            if(s.toString().contains(msg)){
+                System.out.println("found "+s.toString());
+                found.add(s.toString());
+            }
+        }
+        return found;
+    }
+
+
+    /**
+     * Get the message and returns the number of lines to parse
+     * @param msg   user's message
+     * @return      line's number to parse from file
+     */
+    private int getLines(String msg) {
+        char[] stringChar = msg.toCharArray();
+        ArrayList<Character> ke = new ArrayList<Character>();
+        StringBuffer result = new StringBuffer();
+        for (char c : stringChar) {
+            if(Character.isDigit(c)) result.append(c);
+        }
+        String str = result.toString();
+        int time = Integer.parseInt(str);
+        System.out.println("lines are "+time);
+        return time;
     }
 }
