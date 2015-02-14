@@ -106,6 +106,7 @@ public class History extends VariousMessageListenerAdapter {
                 .field("api_option","paste")
                 .field("api_paste_code", msg)
                 .field("api_paste_expire_date", "10M")
+                .field("api_paste_private", 1)
                 .asString();
         return response.getBody();
 
