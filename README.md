@@ -7,8 +7,8 @@ if you have a mongolab account (you should if you want to use this bot) , create
  something like this: 
 ```
 user
-collectionName
 password
+database name
 ```
 
 compile with `mvn clean compile assembly:single` then copy your `settings.xml` && `mongo.txt` on target folder, execute with ` java -jar ircBot-1.0-SNAPSHOT-jar-with-dependencies.jar &`
