@@ -2,4 +2,3 @@
 /bot/ircBot.iml
 /bot/target/
 *.log
-mongo.txt

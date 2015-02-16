@@ -11,7 +11,7 @@ collectionName
 password
 ```
 
-compile with `mvn clean compile assembly:single` then copy your `settings.xml` && mongo.txt on target folder, execute with ` java -jar ircBot-1.0-SNAPSHOT-jar-with-dependencies.jar &`
+compile with `mvn clean compile assembly:single` then copy your `settings.xml` && `mongo.txt` on target folder, execute with ` java -jar ircBot-1.0-SNAPSHOT-jar-with-dependencies.jar &`
 
 ###TODO
 * Documentation
