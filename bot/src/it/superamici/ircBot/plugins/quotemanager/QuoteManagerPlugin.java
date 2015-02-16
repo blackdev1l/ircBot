@@ -5,6 +5,8 @@ import com.ircclouds.irc.api.listeners.IMessageListener;
 import com.ircclouds.irc.api.state.IIRCState;
 import it.superamici.ircBot.plugins.AbstractBotPlugin;
 
+import java.io.IOException;
+
 /**
  * Created by Stefano on 08/09/2014.
  */
